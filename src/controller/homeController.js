@@ -4,6 +4,9 @@ let getUploadFilePage = async (req, res) => {
     return res.render('uploadFile.ejs')
 }
 
+let getUpdateApp = async (req, res) => {
+    return res.render('checkUpdateApp.ejs')
+}
 
 const upload = multer().single('profile_pic');
 
@@ -74,8 +77,14 @@ let handleUploadFile = async (req, res) => {
     });
 }
 
-
-
+let handCheckUpdateApp = async (req, res) => {
+    res.send(`{
+        Caculator_Status:'None','XS:1000','S:4000','M:8000','L:15000','XL:50000'[]\
+        Inittial_Parameters_Small_Status:'None','Lenght:5.000','Width:3.500','Height:1.500','Weight:50.000','Delay:1.5'[]\
+        Inittial_Parameters_Bulkyl_Status:'None','Lenght:30.000','Width:7.00','Height:5.000','Weight:100.000','Delay:3.5'[]\
+        Recipe:'None','(LxWxH)/6','get_higher'
+    }`);
+}
 module.exports = {
-    getUploadFilePage, handleUploadFile
+    getUploadFilePage, handleUploadFile, getUpdateApp, handCheckUpdateApp
 }
