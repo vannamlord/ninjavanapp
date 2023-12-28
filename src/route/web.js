@@ -32,7 +32,7 @@ let upload = multer({ storage: storage, fileFilter: imageFilter });
 const initWebRoute = (app) => {
 
     router.get('/', homeController.getUploadFilePage);
-    router.get('/check-update-app',homeController.handCheckUpdateApp);
+    router.get('/machine-sta',homeController.handCheckUpdateApp);
     router.post('/upload-profile-pic', upload.single('profile_pic'), homeController.handleUploadFile);
     return app.use('/', router)
 }

@@ -1,4 +1,23 @@
 import multer from 'multer';
+const fs = require('fs');
+const util = require('util');
+
+const readFileAsync = util.promisify(fs.readFile);
+
+async function readAsync(filePath) {
+    try {
+        const data = await readFileAsync(filePath, 'utf8');
+        return data;
+    } catch (err) {
+        console.error('Error reading the file:', err);
+    }
+}
+
+// Specify the path to the text file
+const filePath = '/home/ec2-user/ninjavanapp/zone_task.txt';
+
+// Call the readAsync function
+const data_sta = readAsync(filePath);
 
 let getUploadFilePage = async (req, res) => {
     return res.render('uploadFile.ejs')
@@ -78,13 +97,8 @@ let handleUploadFile = async (req, res) => {
 }
 
 let handCheckUpdateApp = async (req, res) => {
-    res.send(`{
-        Caculator_Status:'None','XS:1000','S:4000','M:8000','L:15000','XL:50000'[]\
-        Inittial_Parameters_Small_Status:'None','Lenght:5.000','Width:3.500','Height:1.500','Weight:50.000','Delay:1.5'[]\
-        Inittial_Parameters_Bulkyl_Status:'None','Lenght:30.000','Width:7.00','Height:5.000','Weight:100.000','Delay:3.5'[]\
-        Recipe:'None','(LxWxH)/6','get_higher'
-    }`);
+    res.send(data_sta);
 }
 module.exports = {
-    getUploadFilePage, handleUploadFile, getUpdateApp, handCheckUpdateApp
+    getUploadFilePage, handleUploadFile, getUpdateApp, handCheckUpdateApp,sendrecord
 }
