@@ -17,8 +17,25 @@ async function readAsync(filePath) {
 const filePath = '/home/ec2-user/ninjavanapp/zone_task.txt';
 
 // Call the readAsync function
-const data_sta = readAsync(filePath);
+let data_sta = readAsync(filePath);
 
+const myPromise = new Promise((resolve, reject) => {
+    // Simulating an asynchronous operation
+    setTimeout(() => {
+        resolve(data_sta);
+    }, 1000);
+});
+
+async function proc_data() {
+    myPromise.then((resolvedObject) => {
+        const jsonString = JSON.stringify(resolvedObject);
+        return jsonString;
+    }).catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+let data_sta_proc = proc_data()
 let getUploadFilePage = async (req, res) => {
     return res.render('uploadFile.ejs')
 }
@@ -97,8 +114,8 @@ let handleUploadFile = async (req, res) => {
 }
 
 let handCheckUpdateApp = async (req, res) => {
-    res.send(data_sta);
+    res.send(`{${data_sta_proc}}`);
 }
 module.exports = {
-    getUploadFilePage, handleUploadFile, getUpdateApp, handCheckUpdateApp,sendrecord
+    getUploadFilePage, handleUploadFile, getUpdateApp, handCheckUpdateApp
 }
